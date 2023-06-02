@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {PODNAME}
+spec:
+  volumes:
+  - name: cmmount
+    configMap:
+      name: {CMNAME}
+  tolerations:
+  - operator: "Exists"
+  containers:
+  - image: {IMAGENAME}
+    imagePullPolicy: IfNotPresent
+    name: sshd
+    command: ["bash", "/opt/test.sh"]
+    volumeMounts:
+    - name: cmmount
+      mountPath: /opt/
